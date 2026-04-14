@@ -1,0 +1,53 @@
+students = []
+
+def get_valid_score(prompt):
+    while True:
+        try:
+            score = int(input(prompt))
+            if 0 <= score <= 100:
+                return score
+            else:
+                print('Ошибка! Такой оценки не существует.')
+        except ValueError:
+            print('Ошибка! Введите целое число.')
+
+
+def student_app():
+    
+    print("\n" + "="*40)
+    print("ИНСТРУКЦИЯ:")
+    print("+ — Добавить студента")
+    print("= — Показать список и выйти")
+    print("="*40)
+    
+    while True:
+        name = input('\nНапишите имя студента: ')
+
+        midterm = get_valid_score('Введите балл за промежуточный экзамен : ')
+        final = get_valid_score('Введите балл за финальный экзамен : ')
+
+        w = round(midterm * 0.4)
+        b = round(final * 0.6)
+        total_score = w + b
+
+        students.append({
+            "name": name,
+            "final_score": total_score,
+        })
+
+        print(f'Промежуточный (40%): {w} | Финальный (60%): {b}')
+        print(f'Итоговый балл: {total_score}')
+        
+        print("\nЧто дальше?")
+        
+        choice = input("Выберите действие (+ или =): ")
+        
+        if choice == '=':
+            break
+
+
+student_app()
+
+print("\n======Список всех студентов======")
+for s in students:
+    print(f"{s['name']}: {s['final_score']}")
